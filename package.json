@@ -1,0 +1,26 @@
+{
+    "name": "haml-js",
+    "displayName": "haml-js",
+    "description": "Syntax suppport for haml.js",
+    "version": "0.0.1",
+    "repository": { "url": "https://github.com/chibisuke/haml-js.vscode.git" },
+    "engines": {
+        "vscode": "^1.62.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "haml-js",
+            "aliases": ["haml-js", "haml-js"],
+            "extensions": [".haml"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "haml-js",
+            "scopeName": "source.haml",
+            "path": "./syntaxes/haml-js.tmLanguage.json"
+        }]
+    }
+}

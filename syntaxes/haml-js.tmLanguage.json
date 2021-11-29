@@ -1,0 +1,124 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"fileTypes": [
+		"haml",
+		"html.haml"
+	],
+	"foldingStartMarker": "^\\s*([-%#\\:\\.\\w\\=].*)\\s$",
+	"foldingStopMarker": "^\\s*$",
+	"keyEquivalent": "^~H",
+	"name": "haml-js",
+	"patterns": [
+		{
+			"include": "#comment"
+		},
+		{
+			"include": "#cmd"
+		}
+	],
+	"repository": {
+		"varMatch": {
+			"begin": "{{",
+			"end": "}}",
+			"name": "variable.other.test.haml-js"
+		},
+		"args": {
+			"patterns": [
+			{
+				"match": "(\\S+:)\\s*(\"[^\"]*\"(,|(?=\\s*})))",
+				"captures": {
+					"1": { "name": "variable.language.cmd.haml-js" },
+					"2": { "name": "variable.parameter.cmd.haml-js" }
+				}
+			},
+			{
+				"match": "(\\S+:)\\s*(\"[^\"]*\")\\s*(\\S+(:|\\s))",
+				"captures": {
+					"1": { "name": "variable.language.cmd.haml-js" },
+					"2": { "name": "variable.parameter.cmd.haml-js" },
+					"3": { "name": "invalid.illegal.missing.comma.haml-js"}
+				}
+			},
+			{
+				"match": "(?<=[,{])\\s*(\\S+[^:]\\s+\\S+)(,|(?=\\s*}))",
+				"captures": {
+					"1": { "name": "invalid.illegal.missing.collon.haml-js" }
+				}
+			},
+			{
+				"match": "(?<=[,{])\\s*(\\S+=\\S+)(,|(?=\\s*}))",
+				"captures": {
+					"1": {"name": "invalid.illegal.equal.haml-js"}
+				}
+			},
+			{
+				"match": "(?<=[,{])\\s*(\\S+)(,|(?=\\s*}))",
+				"captures": {
+					"1": { "name": "variable.language.cmd.haml-js" }
+				}
+			}]
+		},
+		"params": {
+			"patterns": [
+				{ "include": "#varMatch" },
+				{
+					"begin": "(?<!{.*){",
+					"end": "}(?!})(?!\".*})",
+					"name": "support.function.haml-js",
+					"patterns": [{
+						"include": "#args"
+					}]
+				},
+				{
+					"match": "[^{]+", "name": "string.quoted.other.haml-js"
+				}
+			]
+		},
+		"cmd": {
+			"patterns": [
+				{
+					"begin": "^\\s*(%[a-zA-Z0-9-]+)?((#[a-zA-Z0-9-]+)((\\.[a-zA-Z0-9-]+)*))(#[a-zA-Z0-9-]+)((\\.[a-zA-Z0-9-]+)*)",
+					"end": "$",
+					"name": "errors.dualid.haml-js",
+					"captures": {
+						"1": { "name": "keyword.control.cmd.haml-js" },
+						"3": { "name": "variable.parameter.cmd.haml-js" },
+						"4": { "name": "support.class.cmd.haml-js" },
+						"6": { "name": "invalid.illegal.cmd.haml-js"},
+						"7": { "name": "support.class.cmd.haml-js" }
+					},
+					"patterns": [{
+						"include": "#params"
+					}]
+				},
+				{
+					"begin": "^\\s*(%[a-zA-Z0-9-]+)?((#[a-zA-Z0-9-]+)?((\\.[a-zA-Z0-9-]+)*))(#[a-zA-Z0-9-]+)?((\\.[a-zA-Z0-9-]+)*)",
+					"end": "$",
+					"name": "command.haml-js",
+					"beginCaptures": {
+						"1": { "name": "keyword.control.cmd.haml-js" },
+						"3": { "name": "variable.parameter.cmd.haml-js" },
+						"4": { "name": "support.class.cmd.haml-js" },
+						"6": { "name": "variable.parameter.cmd.haml-js" },
+						"7": { "name": "support.class.cmd.haml-js" }
+					},
+					"patterns": [{
+						"include": "#params"
+					}]
+				}]
+		},
+		"comment": {
+			"begin": "^(\\s*)-#.*",
+			"end": "^(?!(\\1\\s+|\\s*$))",
+			"name": "comment.control.haml-js"
+		},
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.haml-js",
+				"match": "(\\s\\*(ngIf|ngFor)|\\b(ngClaxxss))\\b"
+			}]
+		}
+	},
+	"scopeName": "source.haml",
+	"uuid": "6ff612b1-026f-4478-b58c-15d69acfb88e"
+}
